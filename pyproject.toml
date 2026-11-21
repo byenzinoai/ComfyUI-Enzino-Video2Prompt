@@ -1,0 +1,13 @@
+[project]
+name = "comfyui-enzino-video2prompt"
+description = "Watches a video with a Qwen vision model and writes a MiniMax H3 prompt that recreates it."
+version = "1.0.0"
+license = { text = "Proprietary" }
+dependencies = ["transformers>=4.57", "accelerate", "huggingface_hub", "av"]
+
+[project.urls]
+Homepage = "https://enzinoai.com"
+
+[tool.comfy]
+PublisherId = "enzino"
+DisplayName = "Enzino Video2Prompt"

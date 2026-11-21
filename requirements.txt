@@ -1,0 +1,6 @@
+transformers>=4.57
+accelerate
+huggingface_hub
+av
+# optional: lets the 8B / Qwen3.5-9B models run in 4-bit on 16 GB cards
+# bitsandbytes
