@@ -1,0 +1,240 @@
+{
+ "id": "03e141b1-73f8-4d2f-b413-e4dc8195ed09",
+ "revision": 0,
+ "last_node_id": 1,
+ "last_link_id": 0,
+ "nodes": [
+  {
+   "id": 1,
+   "type": "EnzinoVideo2Prompt",
+   "pos": [
+    80,
+    80
+   ],
+   "size": [
+    540,
+    668
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "video_in",
+     "name": "video_in",
+     "shape": 7,
+     "type": "VIDEO",
+     "link": null
+    },
+    {
+     "localized_name": "images",
+     "name": "images",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "COMBO",
+     "widget": {
+      "name": "video"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "model",
+     "name": "model",
+     "type": "COMBO",
+     "widget": {
+      "name": "model"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "format",
+     "name": "format",
+     "type": "COMBO",
+     "widget": {
+      "name": "format"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "mode",
+     "name": "mode",
+     "type": "COMBO",
+     "widget": {
+      "name": "mode"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "length",
+     "name": "length",
+     "type": "COMBO",
+     "widget": {
+      "name": "length"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "long_clip",
+     "name": "long_clip",
+     "type": "COMBO",
+     "widget": {
+      "name": "long_clip"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "window_start",
+     "name": "window_start",
+     "type": "FLOAT",
+     "widget": {
+      "name": "window_start"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "window_end",
+     "name": "window_end",
+     "type": "FLOAT",
+     "widget": {
+      "name": "window_end"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "frames",
+     "name": "frames",
+     "type": "COMBO",
+     "widget": {
+      "name": "frames"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "detail",
+     "name": "detail",
+     "type": "COMBO",
+     "widget": {
+      "name": "detail"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "sound",
+     "name": "sound",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "sound"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "keep_model_loaded",
+     "name": "keep_model_loaded",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "keep_model_loaded"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "notes",
+     "name": "notes",
+     "type": "STRING",
+     "widget": {
+      "name": "notes"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "upload",
+     "name": "upload",
+     "type": "IMAGEUPLOAD",
+     "widget": {
+      "name": "upload"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "name": "first_frame",
+     "type": "IMAGE",
+     "links": null
+    },
+    {
+     "name": "duration",
+     "type": "FLOAT",
+     "links": null
+    },
+    {
+     "name": "frames",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "EnzinoVideo2Prompt"
+   },
+   "widgets_values": [
+    "(none)",
+    "↓ Qwen3-VL-4B · 8.9 GB",
+    "H3 official",
+    "Faithful",
+    "Detailed",
+    "Fit into 15 s",
+    0,
+    0,
+    "16",
+    "Fine (768 px)",
+    true,
+    false,
+    "",
+    "image",
+    ""
+   ],
+   "widgets_values_named": {
+    "video": "(none)",
+    "model": "✓ Qwen3-VL-2B-Instruct",
+    "format": "H3 official",
+    "mode": "Faithful",
+    "length": "Short",
+    "long_clip": "Split into parts",
+    "window_start": 0,
+    "window_end": 0,
+    "frames": "16",
+    "detail": "Balanced (512 px)",
+    "sound": true,
+    "keep_model_loaded": false,
+    "notes": "",
+    "upload": "image",
+    "v2p_card": ""
+   },
+   "color": "#1a1a1c",
+   "bgcolor": "#0f0f10",
+   "title": "Enzino Video2Prompt (H3)"
+  }
+ ],
+ "links": [],
+ "groups": [],
+ "config": {},
+ "extra": {
+  "ds": {
+   "scale": 1,
+   "offset": [
+    40,
+    20
+   ]
+  }
+ },
+ "version": 0.4
+}
