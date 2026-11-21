@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enzino Video2Prompt 1.0.0 — Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0b;--panel:#121214;--panel2:#18181b;--line:#25252a;--text:#ececee;--muted:#9b9ba2;--dim:#6d6d74;--o:#e8642d;--o2:#ff7a3d}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Manrope,"Segoe UI",system-ui,sans-serif;font-size:15.5px;line-height:1.65}
+a{color:var(--o2);text-decoration:none}a:hover{text-decoration:underline}
+header{position:sticky;top:0;z-index:5;background:rgba(10,10,11,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{max-width:1080px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:22px}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.4px;color:#fff}.logo sup{color:var(--o);font-size:10px;margin-left:1px}
+nav{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}nav a{color:var(--muted);font-size:13.5px;font-weight:600}nav a:hover{color:#fff;text-decoration:none}
+main{max-width:1080px;margin:0 auto;padding:0 24px 80px}
+.hero{padding:64px 0 40px;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.kicker{font-size:12px;font-weight:800;letter-spacing:2.5px;color:var(--muted)}.kicker b{color:var(--o)}
+h1{font-size:46px;line-height:1.08;margin:12px 0 16px;letter-spacing:-1.2px}h1 span{color:var(--o)}
+.lead{color:var(--muted);font-size:17px;margin:0 0 22px}
+.pills{display:flex;gap:8px;flex-wrap:wrap}.pill{font-size:12.5px;font-weight:700;padding:6px 12px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);color:#d4d4d8}
+.pill.o{background:#2a1a12;border-color:#4a2a1a;color:#ff9a66}
+.shot{border-radius:14px;border:1px solid var(--line);overflow:hidden;background:#000;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.shot img{display:block;width:100%;height:auto}
+section{padding:46px 0 10px;border-top:1px solid var(--line);margin-top:30px}
+h2{font-size:28px;letter-spacing:-.6px;margin:0 0 6px}h2 small{display:block;font-size:12px;letter-spacing:2px;color:var(--o);font-weight:800;margin-bottom:6px}
+h3{font-size:18px;margin:26px 0 6px}
+p{margin:8px 0}.muted{color:var(--muted)}
+.steps{counter-reset:s;list-style:none;padding:0;margin:18px 0}
+.steps li{counter-increment:s;position:relative;padding:14px 16px 14px 58px;background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+.steps li:before{content:counter(s);position:absolute;left:16px;top:14px;width:28px;height:28px;border-radius:8px;background:var(--o);color:#fff;font-weight:800;display:grid;place-items:center;font-size:14px}
+code,kbd{font-family:ui-monospace,Consolas,monospace;font-size:13px;background:#1c1c20;border:1px solid #2a2a30;border-radius:6px;padding:1px 6px;color:#f1c3a8}
+pre{background:#0f0f12;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;border:0;padding:0;color:#e3e3e6}
+.feature{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center;margin:30px 0}
+.feature.rev .shot{order:2}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11.5px;letter-spacing:1.5px;color:var(--dim);font-weight:800;background:#141417}
+tr:last-child td{border-bottom:0}
+td b{color:#fff}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.card h4{margin:0 0 6px;font-size:16px}.card h4 span{color:var(--o)}
+.example{font-size:13.5px;color:#cfcfd3;background:#0f0f12;border-left:3px solid var(--o);padding:10px 14px;border-radius:0 8px 8px 0;margin-top:10px}
+.faq details{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:0 18px}
+.faq summary{cursor:pointer;font-weight:700;padding:14px 0;list-style:none}.faq summary:before{content:"+";color:var(--o);font-weight:800;margin-right:10px}
+.faq details[open] summary:before{content:"–"}
+.faq details>div{padding:0 0 14px;color:#cfcfd3}
+.note{background:#1a130f;border:1px solid #3d2617;border-radius:12px;padding:14px 18px;color:#f0d5c5;margin:16px 0}
+footer{border-top:1px solid var(--line);color:var(--dim);font-size:13px;text-align:center;padding:30px}
+@media(max-width:820px){.hero,.feature,.cards{grid-template-columns:1fr}.feature.rev .shot{order:0}h1{font-size:36px}nav{display:none}}
+</style>
+</head>
+<body>
+<header><div class="bar">
+  <span class="logo">enzino<sup>ai</sup></span>
+  <nav><a href="#install">Install</a><a href="#use">How to use</a><a href="#modes">Modes</a><a href="#format">Format</a><a href="#long">Long clips</a><a href="#settings">Settings</a><a href="#files">Files</a><a href="#trouble">Troubleshooting</a><a href="#tips">Tips</a></nav>
+</div></header>
+
+<main>
+<div class="hero">
+  <div>
+    <div class="kicker">VIDEO<b>2</b>PROMPT · v1.0.0</div>
+    <h1>A video in.<br><span>An H3 prompt out.</span></h1>
+    <p class="lead">One ComfyUI node watches any clip with a local Qwen vision model and writes the prompt MiniMax H3 needs to recreate it, in MiniMax's own official prompt format: shots and cuts, action in order, camera moves, soundscape and music. Always one prompt for one H3 video of 15 s max, with the exact time of every cut.</p>
+    <div class="pills"><span class="pill o">MiniMax H3</span><span class="pill">T2V &amp; I2V</span><span class="pill">100% local</span><span class="pill">16 GB VRAM ok</span><span class="pill">Classic &amp; Nodes 2.0</span></div>
+  </div>
+  <div class="shot"><img src="img/card.jpg" alt="The Video2Prompt card after a run"></div>
+</div>
+
+<section id="install">
+  <h2><small>INSTALL</small>Three minutes, once</h2>
+  <ol class="steps">
+    <li>Copy the folder <code>Node/ComfyUI-Enzino-Video2Prompt</code> into <code>ComfyUI/custom_nodes/</code>.</li>
+    <li>Install the requirements with the ComfyUI python (portable build shown):
+<pre><code>cd ComfyUI_windows_portable
+python_embeded\python.exe -m pip install -r ComfyUI\custom_nodes\ComfyUI-Enzino-Video2Prompt\requirements.txt</code></pre>
+      <span class="muted">Optional, only for the 8B / Qwen3.5-9B models on a 16 GB card: <code>python_embeded\python.exe -m pip install bitsandbytes</code></span></li>
+    <li>Restart ComfyUI, then drag <code>Workflow/Enzino Video2Prompt.json</code> onto the canvas. You can also add the node by hand: double-click the canvas and type <b>Video2Prompt</b> (category <i>Enzino/H3</i>).</li>
+    <li>First run only: the chosen Qwen model downloads by itself to <code>ComfyUI/models/VLM/</code>. Watch the console for progress.</li>
+  </ol>
+</section>
+
+<section id="use">
+  <h2><small>HOW TO USE</small>Pick a video, press Run</h2>
+  <div class="feature">
+    <div class="shot"><img src="img/settings.jpg" alt="Node settings"></div>
+    <div>
+      <h3>1 · Choose the clip</h3>
+      <p>Click <b>choose file to upload</b>, or pick a video already in <code>ComfyUI/input</code>. The preview plays inside the node. The node reads mp4, mov, webm, mkv, avi, m4v and gif.</p>
+      <p class="muted">You can also wire a video in instead: the <code>video_in</code> socket takes the core <i>Load Video</i> node, and <code>images</code> takes frames from any loader (VHS…). A wired input wins over the file field.</p>
+      <h3>2 · Set the format, the mode and the length</h3>
+      <p><b>H3 official</b> (default) writes MiniMax's own structure, see <a href="#format">Format</a>. <b>Faithful</b> recreates the whole clip. <b>Motion only</b> keeps just the action and the camera, which is what you want for animating your own picture. See <a href="#modes">Modes</a>.</p>
+      <p>When the clip is longer than 15 s, a <b>long_clip</b> setting appears. See <a href="#long">Long clips</a>.</p>
+      <h3>3 · Run</h3>
+      <p>The status turns orange (<i>Watching the video…</i>), and the model is unloaded from VRAM when it's done, so H3 gets the whole card back.</p>
+    </div>
+  </div>
+  <div class="feature rev">
+    <div class="shot"><img src="img/card.jpg" alt="Result card"></div>
+    <div>
+      <h3>4 · Get the prompt</h3>
+      <p>The card shows the frames the model actually looked at, then the prompt with the video length, the number of shots and the word count. You can <b>edit the text</b> right in the card before you press <b>Copy prompt</b>. The line under it tells you the duration to set in H3, e.g. <i>set H3 to 15 s</i>.</p>
+      <p>To skip copy-paste, wire the <code>prompt</code> output to the text input of your H3 node, <code>duration</code> to its length, and <code>first_frame</code> to an image-to-video start image.</p>
+      <p class="muted">The prompt stays saved in the workflow, so it is still there when you reopen it.</p>
+    </div>
+  </div>
+  <div class="feature">
+    <div class="shot"><img src="img/node-classic.jpg" alt="Whole node, classic mode"></div>
+    <div>
+      <h3>Classic and Nodes 2.0</h3>
+      <p>The node works in both canvas modes. The prompt card sits right under the settings, so you never have to scroll to find it. The video preview below it keeps a fixed height, even for vertical 9:16 clips. The card grows to show the whole prompt, so there is no scrollbar, and zooming over it zooms the canvas as usual. It always takes the node's width and never overlaps other blocks.</p>
+      <h3>Outputs</h3>
+      <table><tr><th>OUTPUT</th><th>WHAT IT IS</th></tr>
+        <tr><td><b>prompt</b></td><td>The H3 prompt (STRING)</td></tr>
+        <tr><td><b>first_frame</b></td><td>First frame of the analysed clip, ready for I2V</td></tr>
+        <tr><td><b>duration</b></td><td>Length of the video the prompt describes, in seconds (15 max). Set your H3 duration to it</td></tr>
+        <tr><td><b>frames</b></td><td>All the frames the model looked at (IMAGE batch)</td></tr></table>
+    </div>
+  </div>
+</section>
+
+<section id="format">
+  <h2><small>FORMAT</small>MiniMax's official H3 prompt</h2>
+  <p>With <b>format = H3 official</b>, the node writes the structure from MiniMax's own prompt guide (MiniMax-H3 repository, <i>h3-prompt-writing</i> skill):</p>
+<pre><code>integrated_multimodal_description: [Shot 1] Live-action, cinematic, a medium-wide shot frames two archers on a green field…
+[Shot 2] At 00:06.000, the camera cuts to …
+
+overall_soundscape: Wind moves through the trees; an arrow leaves the bow with a soft thud…
+
+non_diegetic_music: N/A</code></pre>
+  <ul>
+    <li><b>Shots</b>: the node finds the cuts in your clip. The first shot has no timestamp, and each later shot starts with its exact cut time, <code>[Shot 2] At 00:06.000</code>.</li>
+    <li><b>Camera</b>: MiniMax's vocabulary, which is the motion type plus an optional amplitude and speed, e.g. <i>pushes in with small amplitude at slow speed</i>.</li>
+    <li><b>Sound</b>: <code>overall_soundscape</code> describes the ambience and action sounds, inferred from the picture since the model can't hear the clip. <code>non_diegetic_music</code> is <code>N/A</code> unless the clip looks like a montage, an ad or a music video. Turn <b>sound</b> off for a silent video, which sets both fields to <code>N/A</code>.</li>
+    <li><b>Motion only</b> adds MiniMax's image-to-video line at the top: <i>For the target video, at 0.00 seconds into the target video, &lt;Picture 1&gt; (from [Shot 1]) is fully referenced.</i></li>
+  </ul>
+  <p class="muted">Choose <b>Simple paragraph</b> if you prefer one plain paragraph, for example for another video model.</p>
+</section>
+
+<section id="long">
+  <h2><small>LONG CLIPS</small>Over 15 seconds: still one prompt</h2>
+  <p>H3 makes videos of 4 to 15 s, and you always get <b>one</b> prompt. The <b>long_clip</b> setting only shows up when your video is longer than 15 s:</p>
+  <table>
+    <tr><th>CHOICE</th><th>WHAT IT DOES</th></tr>
+    <tr><td><b>Fit into 15 s</b> (default)</td><td>The whole clip in one 15 s video. Every event is kept in order, only a bit faster, and every cut time is scaled to the 15 s timeline. A cut at 6.0 s in a 19.8 s clip becomes <code>[Shot 2] At 00:04.545</code>, so each change (a new outfit, a new place) lands at the right moment.</td></tr>
+    <tr><td><b>Window</b></td><td>Only the part between <b>window_start</b> and <b>window_end</b> (in seconds, 15 s max), at real speed. With end = 0, the window is 15 s from the start.</td></tr>
+  </table>
+  <p class="muted">Cuts are found automatically, including jump cuts where the framing stays the same and only something changes, like an outfit in a try-on video.</p>
+</section>
+
+<section id="modes">
+  <h2><small>MODES</small>Faithful or Motion only</h2>
+  <div class="cards">
+    <div class="card"><h4><span>●</span> Faithful</h4>
+      <p class="muted">For text-to-video. Describes everything H3 needs to rebuild the shot: framing, subject, setting, action in order, camera move, light, style.</p>
+      <div class="example">integrated_multimodal_description: [Shot 1] Live-action, cinematic, a medium-wide shot frames two archers on a green field with targets in the background… The camera holds a static shot. [Shot 2] At 00:06.000, the camera cuts to…</div>
+    </div>
+    <div class="card"><h4><span>●</span> Motion only</h4>
+      <p class="muted">For image-to-video with your own picture. Leaves out faces, clothes, colours and the place, and describes only who moves, how, in what order, and what the camera does.</p>
+      <div class="example">For the target video, at 0.00 seconds into the target video, &lt;Picture 1&gt; (from [Shot 1]) is fully referenced.<br><br>integrated_multimodal_description: [Shot 1] Live-action, the woman shown in &lt;Picture 1&gt; keeps her look and framing. She lifts the bow with both hands and draws the string back…</div>
+    </div>
+  </div>
+  <h3>Notes: change the scene</h3>
+  <p>Anything you write in <b>notes</b> takes priority over what is in the clip. Use it to remake a shot with something else: <i>"replace the archers with two samurai"</i>, <i>"night, neon rain"</i>, <i>"anime style"</i>. The camera move and the timing are kept.</p>
+</section>
+
+<section id="settings">
+  <h2><small>SETTINGS</small>Recommended values</h2>
+  <table>
+    <tr><th>SETTING</th><th>RECOMMENDED</th><th>WHAT IT DOES</th></tr>
+    <tr><td><b>model</b></td><td>✓ Qwen3-VL-4B</td><td>Best speed/quality balance on 12–16 GB. Use 8B for the finest detail (it loads in 4-bit on 16 GB when bitsandbytes is installed), and 2B on 6–8 GB cards.</td></tr>
+    <tr><td><b>format</b></td><td>H3 official</td><td>MiniMax's own structure. Simple paragraph for other models.</td></tr>
+    <tr><td><b>mode</b></td><td>Faithful</td><td>Motion only for I2V with your own image.</td></tr>
+    <tr><td><b>long_clip</b></td><td>Fit into 15 s</td><td>Only shown for clips over 15 s. See <a href="#long">Long clips</a>.</td></tr>
+    <tr><td><b>length</b></td><td>Detailed</td><td>Main description of about 60–100 words (Short) or 140–220 words (Detailed). Detailed gives H3 more to work with; Short is quicker to edit by hand.</td></tr>
+    <tr><td><b>frames</b></td><td>16</td><td>Frames read, with at least 2 in every shot. Use 8 for a 3–5 s clip, and 24–32 for many cuts or fast action.</td></tr>
+    <tr><td><b>detail</b></td><td>Fine (768 px)</td><td>The size of each frame the model sees. Fine catches small details (clothes, objects, faces). On 8 GB cards or with the 2B model, use Balanced (512 px) or Fast (384 px).</td></tr>
+    <tr><td><b>sound</b></td><td>on</td><td>Fills <code>overall_soundscape</code> from what is seen, since H3 generates sound. The model does not hear the clip. Off = silent video.</td></tr>
+    <tr><td><b>keep_model_loaded</b></td><td>off</td><td>Turn it on only when you analyse several clips in a row with nothing else running.</td></tr>
+  </table>
+</section>
+
+<section id="files">
+  <h2><small>FILES</small>What gets downloaded</h2>
+  <p class="muted">The <b>model</b> list shows the Qwen vision models you already have first, marked <b>✓</b>. The node finds them in <code>models/VLM</code>, <code>models/LLM</code> (also used by other Qwen-VL nodes), the Hugging Face cache, and <code>models/text_encoders</code>. That last folder holds the full Qwen3-VL files that Krea 2, Fibo 2 or Qwen-Image 2.1 use, shown as <i>“· text encoder”</i>. Those run through ComfyUI's own engine, the same one behind its <i>Generate Text</i> node. The MiniMax H3 text encoder is a cut-down 32B made only for conditioning, so it can't write text and isn't listed. Models marked <b>↓</b> are downloaded to <code>ComfyUI/models/VLM/&lt;name&gt;</code> the first time you use them, and only the one you pick.</p>
+  <table>
+    <tr><th>MODEL</th><th>SOURCE</th><th>SIZE</th><th>VRAM (approx.)</th></tr>
+    <tr><td><b>Qwen3-VL-4B</b> (recommended)</td><td>Qwen/Qwen3-VL-4B-Instruct</td><td>8.9 GB</td><td>~10 GB</td></tr>
+    <tr><td><b>Qwen3-VL-8B</b></td><td>Qwen/Qwen3-VL-8B-Instruct</td><td>17.5 GB</td><td>~19 GB · ~7 GB in 4-bit</td></tr>
+    <tr><td><b>Qwen3-VL-2B</b></td><td>Qwen/Qwen3-VL-2B-Instruct</td><td>4.3 GB</td><td>~5 GB</td></tr>
+    <tr><td><b>Qwen3.5-4B</b></td><td>Qwen/Qwen3.5-4B</td><td>9.3 GB</td><td>~10 GB</td></tr>
+    <tr><td><b>Qwen3.5-9B</b></td><td>Qwen/Qwen3.5-9B</td><td>19.3 GB</td><td>~21 GB · ~8 GB in 4-bit</td></tr>
+  </table>
+  <p class="muted">Already have a Qwen vision model somewhere else? Put its folder (with <code>config.json</code> and the <code>.safetensors</code> files) in <code>models/VLM/</code>, then press <kbd>R</kbd> to refresh. It shows up with a ✓. A download that was cut halfway is not listed as installed.</p>
+  <h3>Pack contents</h3>
+  <table>
+    <tr><th>FOLDER</th><th>CONTENTS</th></tr>
+    <tr><td><b>Node</b></td><td>ComfyUI-Enzino-Video2Prompt, to copy into custom_nodes</td></tr>
+    <tr><td><b>Workflow</b></td><td>Enzino Video2Prompt.json</td></tr>
+    <tr><td><b>Guide</b></td><td>This page</td></tr>
+  </table>
+</section>
+
+<section id="trouble" class="faq">
+  <h2><small>TROUBLESHOOTING</small>If something goes wrong</h2>
+  <details><summary>"transformers is too old" / model not recognised</summary><div>Update it with the ComfyUI python: <code>python_embeded\python.exe -m pip install -U "transformers&gt;=4.57"</code>. The Qwen3.5 models need a recent transformers (5.x).</div></details>
+  <details><summary>Out of memory (CUDA OOM)</summary><div>Lower <b>detail</b> to Fast and <b>frames</b> to 8, or switch to Qwen3-VL-2B. Leave <b>keep_model_loaded</b> off. The node unloads the other ComfyUI models before it loads, but other apps that use the GPU still count.</div></details>
+  <details><summary>The 8B model is very slow</summary><div>Without <code>bitsandbytes</code> it doesn't fit in 16 GB and is partly offloaded to the CPU. Install bitsandbytes so it loads in 4-bit, or use the 4B.</div></details>
+  <details><summary>"Could not read the video"</summary><div>Re-encode the file to H.264 mp4, or load it with a video loader node and wire its frames into <code>images</code>.</div></details>
+  <details><summary>A cut is missing, or there is a cut where there isn't one</summary><div>The node only detects hard cuts. Fades and dissolves count as a single shot. A very fast camera move or a flash can look like a cut. You can edit the <code>[Shot N]</code> lines in the card before you copy.</div></details>
+  <details><summary>The prompt describes something that isn't in the clip</summary><div>Raise <b>frames</b> (the moment may fall between two of the frames read), use a bigger model, or name what you see in <b>notes</b>.</div></details>
+  <details><summary>The download stops or fails</summary><div>Delete the partial folder in <code>models/VLM/</code> and run again. You can also download the repo from Hugging Face yourself into that folder.</div></details>
+</section>
+
+<section id="tips">
+  <h2><small>TIPS &amp; SHORTCUTS</small>Get more out of it</h2>
+  <table>
+    <tr><th>ACTION</th><th>HOW</th></tr>
+    <tr><td><b>Run</b></td><td><kbd>Ctrl</kbd> + <kbd>Enter</kbd></td></tr>
+    <tr><td><b>Copy the prompt</b></td><td>The <b>Copy prompt</b> button. Edit the text in the card first if you want to.</td></tr>
+    <tr><td><b>New prompt for the same clip</b></td><td>Change the mode, the length or the notes, then run again. The video is re-read only when it changes.</td></tr>
+    <tr><td><b>Remake a shot as I2V</b></td><td>Use Motion only, wire <code>first_frame</code> into your edit or upscale chain, then into H3 image-to-video.</td></tr>
+    <tr><td><b>Long clips</b></td><td>Cut them into single shots first. One prompt describes one shot best.</td></tr>
+  </table>
+</section>
+</main>
+<footer>Enzino Video2Prompt 1.0.0 · <a href="https://enzinoai.com">enzinoai.com</a> · <a href="https://ko-fi.com/enzinoxl">Ko-Fi</a></footer>
+</body>
+</html>
